@@ -5,19 +5,52 @@ using UnityEngine;
 public class RotateObject : MonoBehaviour
 {
 
-    public float rotaionSpeed = 10f;
+    [SerializeField] private float rotationSpeed = 100f;
+    [SerializeField] private RectTransform scrollArea;
 
-    private bool isDraggin = false;
     private Vector3 lastMousePosition;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private bool isRotating = false;
 
-    // Update is called once per frame
     void Update()
     {
+
+        if (IsMouseOverUI())
+        {
+            return;
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            lastMousePosition = Input.mousePosition;
+            isRotating = true;
+        }
+
         
+        if (Input.GetMouseButton(0) && isRotating)
+        {
+            Vector3 deltaMousePosition = Input.mousePosition - lastMousePosition;
+
+            float rotationY = deltaMousePosition.x * rotationSpeed * Time.deltaTime;
+            float rotationX = -deltaMousePosition.y * rotationSpeed * Time.deltaTime;
+
+            transform.Rotate(Vector3.up, rotationY, Space.World);
+            transform.Rotate(Vector3.right, rotationX, Space.Self);
+
+            lastMousePosition = Input.mousePosition;
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            isRotating = false;
+        }
+    }
+
+    private bool IsMouseOverUI()
+    {
+        if(scrollArea == null)
+            return false;
+
+        Vector2 localMousePosition = scrollArea.InverseTransformPoint(Input.mousePosition);
+        return scrollArea.rect.Contains(localMousePosition);
     }
 }
