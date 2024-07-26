@@ -11,17 +11,16 @@ public class ExpandingCube : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Toggle toggle;
     [SerializeField] private Text nameToggle;
-    [SerializeField] private RectTransform cube;
+    [SerializeField] private Transform cube;
 
     [SerializeField] private GameObject[] cubes;
     [SerializeField] private TMP_Text[] nameCubes;
 
     [SerializeField] private Image[] images; 
     private Color[] originalColors;
-    // Start is called before the first frame update
+    
     void Start()
     {
-        //toggle.isOn = !toggle.isOn;
         nameToggle.text = "Expanding";
 
         originalColors = new Color[cubes.Length];
@@ -48,8 +47,8 @@ public class ExpandingCube : MonoBehaviour
     public void Reset()
     {
         animator.SetBool("OpenCube", false);
-        cube.transform.GetComponent<RectTransform>().anchoredPosition3D = Vector3.zero;
-        cube.transform.GetComponent<RectTransform>().rotation = Quaternion.identity;
+        cube.localPosition = Vector3.zero;
+        cube.rotation = Quaternion.identity;
         toggle.isOn = true;
     }
 
@@ -64,11 +63,11 @@ public class ExpandingCube : MonoBehaviour
         for (int i = 0; i < cubes.Length; i++)
         {
             nameCubes[i].text = cubes[i].name ;
-
             
             images[i].color =  originalColors[i];
-            //images[i].color = renderer.material.color;
         }
+
+        animator.pivotPosition.Set(0,0,0);
     }
     
 }

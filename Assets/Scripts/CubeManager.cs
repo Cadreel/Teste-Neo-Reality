@@ -9,7 +9,6 @@ public class CubeManager : MonoBehaviour
 
     void Start()
     {
-        // Armazena as cores originais dos cubos
         originalColors = new Color[cubes.Length];
         for (int i = 0; i < cubes.Length; i++)
         {
@@ -23,7 +22,6 @@ public class CubeManager : MonoBehaviour
 
     public void HighlightCube(int index)
     {
-        // Restaura as cores originais dos cubos
         for (int i = 0; i < cubes.Length; i++)
         {
             Renderer renderer = cubes[i].GetComponent<Renderer>();
@@ -33,7 +31,6 @@ public class CubeManager : MonoBehaviour
             }
         }
 
-        // Destaca o cubo selecionado
         if (index >= 0 && index < cubes.Length)
         {
             Renderer renderer = cubes[index].GetComponent<Renderer>();

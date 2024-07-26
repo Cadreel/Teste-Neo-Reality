@@ -6,7 +6,7 @@ public class CameraZoom : MonoBehaviour
     [SerializeField] private float zoomSpeed = 10f; // Velocidade do zoom
     [SerializeField] private float minZoom = 5f; // Limite mínimo de zoom
     [SerializeField] private float maxZoom = 40f; // Limite máximo de zoom
-    [SerializeField] private float initialZoom = 60f; // Zoom inicial
+    [SerializeField] private float initialZoom; // Zoom inicial
 
     private float currentZoom; // Zoom atual
     private Vector3 initialPosition; // Posição inicial da câmera
@@ -20,7 +20,7 @@ public class CameraZoom : MonoBehaviour
         }
         currentZoom = cam.fieldOfView; // Inicializa com o valor atual
         initialZoom = cam.fieldOfView; // Salva o zoom inicial
-        initialPosition = new Vector3(1.2f, -1.2f, -10); // Salva a posição inicial
+        initialPosition = new Vector3(0, 1, -10); // Salva a posição inicial
         initialRotation = cam.transform.rotation; // Salva a rotação inicial
     }
 
